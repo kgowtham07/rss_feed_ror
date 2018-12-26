@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  has_many :microposts, dependent: :destroy
+
   before_save { self.email = email.downcase }
   attr_accessor :remember_token
 
@@ -9,6 +11,12 @@ class User < ApplicationRecord
                       uniqueness: { case_sensitive: false }
   has_secure_password
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
+
+  # Defines a proto-feed.
+  # See "Following users" for the full implementation.
+  def feed
+    Micropost.where("user_id = ?", id)
+  end
 
   # Returns the hash digest of the given string.
   def User.digest(string)
