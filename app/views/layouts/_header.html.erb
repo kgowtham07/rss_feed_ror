@@ -21,6 +21,7 @@
             </ul>
           </li>
         <% else %>
+          <%= render 'layouts/login' %>
           <li><%= link_to "Log in", login_path %></li>
         <% end %>
       </ul>
