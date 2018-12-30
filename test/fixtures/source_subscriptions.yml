@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  news_hub: one
+  user: one
+
+two:
+  news_hub: two
+  user: two

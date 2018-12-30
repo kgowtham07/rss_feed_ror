@@ -1,0 +1,37 @@
+<%= link_to "Home", root_path %>
+<%= link_to "About", about_path %>
+<%= link_to "Contact", contact_path %>
+
+<% if logged_in? %>
+    <%= link_to "Profile", current_user %>
+
+    <!-- Need to check for no news source and also need to -->
+    <%
+    
+        subscription = SourceSubscription.find_by(user_id: session[:user_id])
+        
+        subscription.each do |source|
+            news_hub_details = NewsHub.find_by(id: subscription.news_hub_id) 
+    
+    %>
+
+    <li>    
+        <%= link_to news_hub_details.name, news_hub_details %>
+    </li>
+        
+    <% end %>
+        
+    <!-- 
+    
+        <% NewsHub.all.each do |news_source| %>
+            <li>
+                <%= link_to news_source.name, news_source %>
+            </li>
+        <% end %>
+
+    -->
+
+<% else %>
+    <%= link_to "Login", login_path %>
+    <%= link_to "Sign Up", signup_path%>
+<% end %>
