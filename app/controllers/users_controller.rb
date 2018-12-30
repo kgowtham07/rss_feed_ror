@@ -24,6 +24,7 @@ class UsersController < ApplicationController
       flash[:success] = "Welcome to the Sample App!"
       redirect_to @user
     else
+      flash[:danger] = "Sorry, couldn't create account. Please try again."
       render 'new'
     end
   end

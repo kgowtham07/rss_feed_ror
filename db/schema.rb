@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_28_131151) do
+ActiveRecord::Schema.define(version: 2018_12_30_121938) do
 
   create_table "microposts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.text "content"
@@ -24,8 +24,8 @@ ActiveRecord::Schema.define(version: 2018_12_28_131151) do
   create_table "news_feeds", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
     t.string "url"
-    t.string "description"
     t.string "url_digest"
+    t.string "description"
     t.timestamp "published_on"
     t.bigint "news_hub_id"
     t.datetime "created_at", null: false
@@ -36,8 +36,18 @@ ActiveRecord::Schema.define(version: 2018_12_28_131151) do
   create_table "news_hubs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
     t.string "url"
+    t.string "url_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "source_subscriptions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "news_hub_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["news_hub_id"], name: "index_source_subscriptions_on_news_hub_id"
+    t.index ["user_id"], name: "index_source_subscriptions_on_user_id"
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -53,4 +63,6 @@ ActiveRecord::Schema.define(version: 2018_12_28_131151) do
 
   add_foreign_key "microposts", "users"
   add_foreign_key "news_feeds", "news_hubs"
+  add_foreign_key "source_subscriptions", "news_hubs"
+  add_foreign_key "source_subscriptions", "users"
 end

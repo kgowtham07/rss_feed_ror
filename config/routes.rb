@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
-  get 'sessions/new'
-  get '/signup',   to: 'users#new'
   root 'static_page#home'
+  
+  get 'sessions/new'
+
+  get '/signup',   to: 'users#new'
   get  '/help',    to: 'static_page#help'
   get  '/about',   to: 'static_page#about'
   get  '/contact', to: 'static_page#contact'
@@ -9,6 +11,7 @@ Rails.application.routes.draw do
   
   resources :users
   resources :microposts,  only: [:create, :destroy]
+  resources :news_hubs,   only: [:edit, :update, :show, :destory]
 
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'
