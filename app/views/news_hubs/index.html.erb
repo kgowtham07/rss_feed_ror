@@ -1,0 +1,15 @@
+<% provide(:title, 'All Hubs') %>
+<h1>All Hubs</h1>
+
+<%= will_paginate @news_hub%>
+
+<ul class="users">
+  <% @news_hub.each do |news_hub| %>
+    <li>
+      <%= link_to news_hub.name, news_hub %>
+      <%= link_to 'edit', edit_news_hub_path(news_hub) %>
+    </li>
+  <% end %>
+</ul>
+
+<%= will_paginate @news_hub%>

@@ -11,7 +11,10 @@ Rails.application.routes.draw do
   
   resources :users
   resources :microposts,  only: [:create, :destroy]
-  resources :news_hub,   only: [:edit, :update, :show, :destory]
+  resources :news_hubs
+
+  get '/addhub', to: 'news_hubs#new'
+  get '/showhub', to: 'news_hubs#index'
 
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'
