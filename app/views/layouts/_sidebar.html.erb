@@ -5,23 +5,43 @@
 <% if logged_in? %>
     <%= link_to "Profile", current_user %>
 
-    <!-- Need to check for no news source and also need to -->
-    <%
+    <!-- Need to check for no news source and also need to  -->
     
-        subscription = SourceSubscription.find_by(user_id: session[:user_id])
-        
-        subscription.each do |source|
-            news_hub_details = NewsHub.find_by(id: subscription.news_hub_id) 
-    
-    %>
 
-    <li>    
-        <%= link_to news_hub_details.name, news_hub_details %>
-    </li>
+         
+         <% if subscription.empty? %>
+                
+                <%= link_to "Add Source", signup_path%>
+         
+         <% else %>
         
-    <% end %>
+            <%
+
+            subscription = SourceSubscription.find_by(user_id: session[:user_id])
+
+            subscription.each do |source|
+                news_hub_details = NewsHub.find_by(id: subscription.news_hub_id) 
+
+            %>
+
+            <li>    
+                <%= link_to news_hub_details.name, news_hub_details %>
+            </li>
+         
+            <% end %>
+
+            <%= link_to "Add Source", signup_path%>
+         
+        <% end %>
         
-    <!-- 
+   
+
+<% else %>
+    <%= link_to "Login", login_path %>
+    <%= link_to "Sign Up", signup_path%>
+<% end %>
+
+ <!-- 
     
         <% NewsHub.all.each do |news_source| %>
             <li>
@@ -30,8 +50,3 @@
         <% end %>
 
     -->
-
-<% else %>
-    <%= link_to "Login", login_path %>
-    <%= link_to "Sign Up", signup_path%>
-<% end %>

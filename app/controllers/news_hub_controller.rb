@@ -25,7 +25,7 @@ class NewsHubController < ApplicationController
 
     def show
         @news_hub = NewsHub.find(params[:id])
-        @new_feed = @news_hub.news_feed.paginate(page: params[:page])
+        @news_feed = @news_hub.news_feed.paginate(page: params[:page])
     end
 
     def show_all

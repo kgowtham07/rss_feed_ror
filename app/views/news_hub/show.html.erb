@@ -1,0 +1,17 @@
+<div class="row">
+  <aside class="col-md-4">
+    <section class="user_info">
+      <h1>
+      </h1>
+    </section>
+  </aside>
+  <div class="col-md-8">
+  <% if @news_hub.news_feed.any? %>
+    <h3>Articles (<%= @news_hub.news_feed.count %>)</h3>
+    <ol class="microposts">
+      <%= render @news_feed %>
+    </ol>
+    <%= will_paginate @news_feed %>
+  <% end %>
+</div>
+</div>
