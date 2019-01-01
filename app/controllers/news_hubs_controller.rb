@@ -24,16 +24,20 @@ class NewsHubsController < ApplicationController
         url_digest = Digest::SHA256.base64digest params[:news_hub][:url]
         # byebug
         source_update[:url_digest] = url_digest
-        
-        @news_hub = NewsHub.new(source_update)
-        if @news_hub.save
-            news_poller = NewsHub.new
-            news_poller.articlePoller
-          flash[:success] = "Successfully Added #{@news_hub.name}"
-          redirect_to @news_hub
+        if !NewsHub.find_by(url_digest: url_digest)
+            @news_hub = NewsHub.new(source_update)
+            if @news_hub.save
+                news_poller = NewsHub.new
+                news_poller.articlePoller
+            flash[:success] = "Successfully Added #{@news_hub.name}"
+            redirect_to @news_hub
+            else
+            flash[:danger] = "Sorry, couldn't add the source. Please try again."
+            render 'new'
+            end
         else
-          flash[:danger] = "Sorry, couldn't add the source. Please try again."
-          render 'new'
+            flash[:danger] = "Sorry, Hub Already exists!"
+            render 'new'
         end
     end
 

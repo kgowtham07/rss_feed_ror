@@ -17,8 +17,17 @@
 
     <div class="sidenav">
   
-      <%= render 'layouts/admin_sidebar' %>
-  
+    
+      <% if logged_in? && admin_user? %>
+
+        <%= render 'layouts/admin_sidebar' %>
+
+      <%= else %>
+        
+        <%= render 'layouts/user_sidebar'%>
+
+      <% end %>
+    
     </div>
 
     <div class="main">

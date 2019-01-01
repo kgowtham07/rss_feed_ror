@@ -3,7 +3,7 @@
 <%= link_to "Contact", contact_path %>
 
 <% if logged_in? %>
-    <%= link_to "Profile", current_user %>
+    <%= link_to "Edit Profile", edit_user_path(current_user) %>
 
     <!-- Need to check for no news source and also need to  -->
     
