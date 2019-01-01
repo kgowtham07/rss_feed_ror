@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :users
   resources :microposts,  only: [:create, :destroy]
   resources :news_hubs
+  resources :source_subscriptions, only: [:create, :destory]
 
   get '/addhub', to: 'news_hubs#new'
   get '/showhub', to: 'news_hubs#index'

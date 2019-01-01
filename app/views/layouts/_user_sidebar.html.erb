@@ -9,7 +9,7 @@
     
 
          
-         <% if subscription.empty? %>
+         <% if subscription.empty?/current_user.news_hub.empty? %>
                 
                 <%= link_to "Add Source", signup_path%>
          
@@ -17,15 +17,17 @@
         
             <%
 
-            subscription = SourceSubscription.find_by(user_id: session[:user_id])
+            # subscription = SourceSubscription.find_by(user_id: session[:user_id])
+              subscription = current_user.news_hub
 
             subscription.each do |source|
-                news_hub_details = NewsHub.find_by(id: subscription.news_hub_id) 
+                # news_hub_details = NewsHub.find_by(id: subscription.news_hub_id) 
 
             %>
 
             <li>    
                 <%= link_to news_hub_details.name, news_hub_details %>
+                <%= link_to source.name, source%>
             </li>
          
             <% end %>

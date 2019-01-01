@@ -1,5 +1,8 @@
 class User < ApplicationRecord
+  
   has_many :microposts, dependent: :destroy
+  has_many :source_subscriptions
+  has_many :news_sources, through: :source_subscriptions
 
   before_save { self.email = email.downcase }
   attr_accessor :remember_token

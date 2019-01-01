@@ -1,7 +1,7 @@
 class NewsHubsController < ApplicationController
 
-    # before_action :logged_in_user
-    # before_action :admin_user,     only: [:index, :create, :destroy, :edit, :update]
+    before_action :logged_in_user
+    before_action :admin_user,     only: [:index, :create, :destroy, :edit, :update]
 
     def index
         @news_hub = NewsHub.paginate(page: params[:page])
