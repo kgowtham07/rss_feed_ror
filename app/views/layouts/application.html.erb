@@ -16,17 +16,24 @@
   <body>
 
     <div class="sidenav">
-  
+    
+      <%= link_to "Home", root_path %>
+      <%= link_to "About", about_path %>
+      <%= link_to "Contact", contact_path %>
     
       <% if logged_in? && admin_user? %>
 
         <%= render 'layouts/admin_sidebar' %>
 
-      <%= else %>
+      <% else %>
         
         <%= render 'layouts/user_sidebar'%>
 
       <% end %>
+
+      <% if logged_in?%>
+          <%= link_to "Log out", logout_path, method: :delete %>
+      <%end%>
     
     </div>
 

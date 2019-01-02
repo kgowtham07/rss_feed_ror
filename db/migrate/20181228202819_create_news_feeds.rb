@@ -10,5 +10,7 @@ class CreateNewsFeeds < ActiveRecord::Migration[5.2]
 
       t.timestamps
     end
+    add_index :news_feeds, [:news_hub_id,:published_on]
+    #Ex:- add_index("admin_users", "username")
   end
 end

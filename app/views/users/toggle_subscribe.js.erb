@@ -1,0 +1,5 @@
+<% if current_user.following?(@user) %>
+$('.bttn-pill').addClass('bttn-md bttn-danger');
+<% else %>
+$('.bttn-pill').addClass('bttn-md bttn-success');
+<% end %>

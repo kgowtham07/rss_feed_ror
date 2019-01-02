@@ -1,0 +1,23 @@
+<% provide(:title, 'All Sources') %>
+<h1>All Sources</h1>
+
+<%= will_paginate @news_hub%>
+
+<ul class="users">
+  <% @news_hub.each do |news_hub| %>
+    <li>
+      
+        <% unless current_user?(@user) %>
+            <span><%= news_hub.name%>(<%=news_hub.users.count%>)</span>
+            <% if current_user.following?(news_hub) %>
+                <%= link_to 'Unfollow', source_path(:news_hub_id => news_hub.id), method: :post, class: 'bttn-pill bttn-sm bttn-danger', method: :put, :remote => true %>
+            <% else %>
+                <%= link_to 'Follow', source_path(:news_hub_id => news_hub.id), method: :post, style: 'text-decoration: none;', class: 'bttn-pill bttn-md bttn-success', method: :put, remote: true %>
+            <% end %>
+        <% end %>
+
+    </li>
+  <% end %>
+</ul>
+
+<%= will_paginate @news_hub%>

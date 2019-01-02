@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
+  before_action :logged_in_user, only: [:index, :edit, :update, :destroy,:show_source]
   before_action :correct_user,   only: [:edit, :update]
   before_action :admin_user,     only: :destroy
 
@@ -48,6 +48,28 @@ class UsersController < ApplicationController
     flash[:success] = "User deleted"
     redirect_to users_url
   end
+
+  def show_source
+    @news_hub = NewsHub.paginate(page: params[:page])
+  end
+  
+
+  def toggle_subscribe
+    @news_hub = NewsHub.find(params[:news_hub_id])
+    
+    if !current_user.following?(@news_hub)
+      current_user.follow(@news_hub)
+    elsif current_user.following?(@news_hub)
+      current_user.stop_following(@news_hub)
+    end
+
+    respond_to do |format|
+      format.html { redirect_to source_path }
+      # format.js {render :nothing => true}
+    end
+  end
+
+ 
 
   private
 

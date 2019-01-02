@@ -4,7 +4,7 @@ class NewsHubsController < ApplicationController
     before_action :admin_user,     only: [:index, :create, :destroy, :edit, :update]
 
     def index
-        @news_hub = NewsHub.paginate(page: params[:page])
+        @news_hub = NewsHub.paginate(page: params[:page],per_page: 10)
     end
 
     def new
@@ -43,7 +43,7 @@ class NewsHubsController < ApplicationController
 
     def show
         @news_hub = NewsHub.find(params[:id])
-        @news_feed = @news_hub.news_feed.paginate(page: params[:page])
+        @news_feed = @news_hub.news_feeds.order('published_on DESC').paginate(page: params[:page], per_page: 10)
     end
 
     def edit

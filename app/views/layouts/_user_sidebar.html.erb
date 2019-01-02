@@ -1,38 +1,27 @@
-<%= link_to "Home", root_path %>
-<%= link_to "About", about_path %>
-<%= link_to "Contact", contact_path %>
-
 <% if logged_in? %>
     <%= link_to "Edit Profile", edit_user_path(current_user) %>
 
-    <!-- Need to check for no news source and also need to  -->
-    
 
          
-         <% if subscription.empty?/current_user.news_hub.empty? %>
+         <% if current_user.news_hubs.empty? %>
                 
-                <%= link_to "Add Source", signup_path%>
+                <%= link_to "Add Source", source_path%>
          
          <% else %>
         
             <%
+              subscription = current_user.news_hubs
 
-            # subscription = SourceSubscription.find_by(user_id: session[:user_id])
-              subscription = current_user.news_hub
-
-            subscription.each do |source|
-                # news_hub_details = NewsHub.find_by(id: subscription.news_hub_id) 
-
+              subscription.each do |source|
             %>
 
             <li>    
-                <%= link_to news_hub_details.name, news_hub_details %>
-                <%= link_to source.name, source%>
+                <%= link_to source.name, source %>
             </li>
          
             <% end %>
 
-            <%= link_to "Add Source", signup_path%>
+            <%= link_to "Add Source", source_path%>
          
         <% end %>
         

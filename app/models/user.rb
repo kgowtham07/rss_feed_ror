@@ -2,7 +2,7 @@ class User < ApplicationRecord
   
   has_many :microposts, dependent: :destroy
   has_many :source_subscriptions
-  has_many :news_sources, through: :source_subscriptions
+  has_many :news_hubs, through: :source_subscriptions
 
   before_save { self.email = email.downcase }
   attr_accessor :remember_token
@@ -15,6 +15,25 @@ class User < ApplicationRecord
   has_secure_password
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
 
+  def following?(news_hub)
+    # Check if current_user needs to be used?
+    news_hubs.include?(news_hub)
+  end
+  
+  def follow(news_hub)
+    news_hubs << news_hub
+  end
+
+  def stop_following(news_hub)
+    news_hubs.delete(news_hub)
+  end
+
+  def followings
+    news_hubs
+  end
+  
+  
+  
 
   # Defines a proto-feed.
   # See "Following users" for the full implementation.

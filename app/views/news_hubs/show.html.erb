@@ -6,8 +6,8 @@
     </section>
   </aside>
   <div class="col-md-8">
-  <% if @news_hub.news_feed.any? %>
-    <h3>Articles (<%= @news_hub.news_feed.count %>)</h3>
+  <% if @news_hub.news_feeds.any? %>
+    <h3><%= @news_hub.name%> (<%= @news_hub.news_feeds.count %>)</h3>
     <ol class="microposts">
       <%= render @news_feed %>
     </ol>
@@ -15,3 +15,5 @@
   <% end %>
 </div>
 </div>
+
+
