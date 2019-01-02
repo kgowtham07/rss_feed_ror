@@ -31,6 +31,7 @@ gem 'bootstrap-will_paginate', '~> 1.0'
 gem 'bootstrap', '~> 4.0.0'
 gem 'feedjira', '~> 2.2'
 gem 'whenever', '~> 0.10.0'
+gem 'shortener', '~> 0.8.0'
 # gem 'readmorejs-rails'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'

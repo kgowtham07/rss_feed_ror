@@ -1,7 +1,25 @@
-<li id="micropost-<%= news_feed.id %>">
-  <span class="user"><%= link_to news_feed.title, news_feed.url, target: :_blank %></span>
-    <span class="content"><%= raw news_feed.description %></span>
-  <span class="timestamp">
-    Posted <%= time_ago_in_words(news_feed.published_on) %> ago.
-  </span>
-</li>
+
+<div class="column">
+    <!-- Post-->
+    <div class="post-module">
+<!-- Thumbnail-->
+  <div class="thumbnail">
+    <div class="date">
+      <div class="day"><%=news_feed.published_on.day%></div>
+      <div class="month"><%=news_feed.published_on.strftime("%B")[0..2]%></div>
+      
+      <% if news_feed.image_url != nil %>
+        </div><img src="<%=news_feed.image_url%>"/>
+        <% else %>
+        </div><%= image_tag 'news-default.jpeg' %>
+      <% end %>
+  </div>
+  <!-- Post Content-->
+  <div class="post-content">
+   <!-- <div class="category">Photos</div> -->
+    <h1 class="title"><%= link_to news_feed.title, news_feed.url, target: :_blank %></h1>
+    <p class="description"><%= truncate("#{raw news_feed.description}",length: 50) { link_to "Continue", "#{news_feed.url}" , target: :_blank} %></p>
+    <div class="post-meta"><span class="timestamp"><i class="fa fa-clock-">o</i> <%= time_ago_in_words(news_feed.published_on) %> ago.</span></div>
+  </div>
+ </div>
+  </div>

@@ -20,7 +20,8 @@ class NewsHub < ApplicationRecord
                     if !NewsFeed.find_by(url_digest: url_digest)
                         news_feed_item = NewsFeed.new(title: "#{entry.title}",url: "#{entry.url}",
                             url_digest: "#{url_digest}",description:"#{entry.summary}", 
-                            published_on: "#{entry.published}",news_hub_id:"#{source.id}")
+                            published_on: "#{entry.published}",news_hub_id:"#{source.id}",
+                            image_url: "#{entry.image}")
                         if !news_feed_item.save
                             puts "Failed to Enter the article #{entry.title} -- #{entry.url}"
                         end

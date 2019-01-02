@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_31_065617) do
+ActiveRecord::Schema.define(version: 2019_01_02_130948) do
 
   create_table "microposts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.text "content"
@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 2018_12_31_065617) do
     t.bigint "news_hub_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "image_url"
     t.index ["news_hub_id"], name: "index_news_feeds_on_news_hub_id"
   end
 
