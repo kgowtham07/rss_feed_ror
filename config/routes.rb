@@ -10,12 +10,12 @@ Rails.application.routes.draw do
   post '/signup',  to: 'users#create'
   get '/source',  to: 'users#show_source'
   put '/source', to: 'users#toggle_subscribe'
+  post '/read', to: 'users#toggle_read'
 
   
   resources :users
   resources :microposts,  only: [:create, :destroy]
   resources :news_hubs
-  resources :source_subscriptions, only: [:create, :destory]
 
   get '/addhub', to: 'news_hubs#new'
   get '/showhub', to: 'news_hubs#index'

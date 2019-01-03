@@ -1,5 +1,7 @@
 class User < ApplicationRecord
   
+  acts_as_reader
+
   has_many :microposts, dependent: :destroy
   has_many :source_subscriptions
   has_many :news_hubs, through: :source_subscriptions

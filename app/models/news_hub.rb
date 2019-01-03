@@ -3,7 +3,7 @@ class NewsHub < ApplicationRecord
     validates :url, presence: true
     validates :url_digest, presence: true
 
-    has_many :news_feeds
+    has_many :news_feeds, dependent: :destroy
     has_many :source_subscriptions, dependent: :destroy
     has_many :users, through: :source_subscriptions
 

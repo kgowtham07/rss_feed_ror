@@ -18,3 +18,11 @@
 # end
 
 # Learn more: http://github.com/javan/whenever
+
+
+set :output, "log/whenever.log"
+job_type :rake, "cd #{path} && RAILS_ENV=development /home/kiran/.rvm/wrappers/ruby-2.5.3@rss_feed/bundle exec rake :task --silent :output"
+
+every 5.minutes do
+  rake "news_hub:fetch_article"
+end

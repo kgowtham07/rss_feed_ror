@@ -8,6 +8,10 @@
     <li>
       <%= link_to news_hub.name, news_hub %>
       <%= link_to 'edit', edit_news_hub_path(news_hub) %>
+      <% if current_user.admin?  %>
+    |     <%= link_to "delete", news_hub, method: :delete,
+                                  data: { confirm: "You sure?" } %>
+      <% end %>
     </li>
   <% end %>
 </ul>

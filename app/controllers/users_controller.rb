@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: [:index, :edit, :update, :destroy,:show_source]
+  before_action :logged_in_user, only: [:index, :edit, :update, :destroy,:show_source, :toggle_subscribe, :toggle_read]
   before_action :correct_user,   only: [:edit, :update]
-  before_action :admin_user,     only: :destroy
+  #before_action :admin_user,     only: :destroy
 
 
   def index
@@ -66,6 +66,19 @@ class UsersController < ApplicationController
     respond_to do |format|
       format.html { redirect_to source_path }
       # format.js {render :nothing => true}
+    end
+  end
+
+  def toggle_read
+    @news_feed = NewsFeed.find(params[:news_feed_id])
+
+    if !current_user.have_read?(@news_feed)
+      @news_feed.mark_as_read! for: current_user
+    end
+
+    respond_to do |format|
+      format.html { render root_url }
+      format.js {render :nothing => true}
     end
   end
 

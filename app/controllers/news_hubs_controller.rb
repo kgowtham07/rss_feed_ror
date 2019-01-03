@@ -1,7 +1,7 @@
 class NewsHubsController < ApplicationController
 
     before_action :logged_in_user
-    before_action :admin_user,     only: [:index, :create, :destroy, :edit, :update]
+    before_action :admin_user,     only: [:new, :index, :create, :destroy, :edit, :update]
 
     def index
         @news_hub = NewsHub.paginate(page: params[:page],per_page: 10)
@@ -30,7 +30,7 @@ class NewsHubsController < ApplicationController
                 news_poller = NewsHub.new
                 news_poller.articlePoller
             flash[:success] = "Successfully Added #{@news_hub.name}"
-            redirect_to @news_hub
+            redirect_to showhub_path
             else
             flash[:danger] = "Sorry, couldn't add the source. Please try again."
             render 'new'
@@ -43,7 +43,12 @@ class NewsHubsController < ApplicationController
 
     def show
         @news_hub = NewsHub.find(params[:id])
-        @news_feed = @news_hub.news_feeds.order('published_on DESC').paginate(page: params[:page], per_page: 10)
+        if current_user.following?(@news_hub) || current_user.admin?
+            @news_feed = @news_hub.news_feeds.order('published_on DESC').paginate(page: params[:page], per_page: 10)
+        else
+            flash[:danger] = "Please subscribe the source to access"
+            redirect_to root_path
+        end
     end
 
     def edit
@@ -79,7 +84,7 @@ class NewsHubsController < ApplicationController
     def destroy
         NewsHub.find(params[:id]).destroy
         flash[:success] = "News Source deleted"
-        redirect_to newshub_url
+        redirect_to showhub_path
     end
 
     def show_all

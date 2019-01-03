@@ -1,14 +1,4 @@
-
 <div class="container">
-  <div class="info">
-  <% if @news_hub.news_feeds.any? %>
-    <h1><%= @news_hub.name%> (<%= @news_hub.news_feeds.count %>)</h1>
-  </div>
- 
-  <!-- Normal Demo-->
-  
-      <%= render @news_feed %>
-   
-<%= will_paginate @news_feed %>
-<% end %>
+<h1><%=@news_hub.name%></h1>
+  <%= render @news_feed %>
 </div>
