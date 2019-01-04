@@ -1,6 +1,9 @@
 class StaticPageController < ApplicationController
   
   def home
+    if logged_in? && admin_user?
+      redirect_to showhub_path
+    end
     if logged_in?
       @news_hubs = current_user.news_hubs
       @newsfeed = Array.new

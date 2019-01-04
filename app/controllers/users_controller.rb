@@ -50,6 +50,9 @@ class UsersController < ApplicationController
   end
 
   def show_source
+    if logged_in? && admin_user?
+      redirect_to showhub_path
+    end
     @news_hub = NewsHub.paginate(page: params[:page])
   end
   
