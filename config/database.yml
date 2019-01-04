@@ -48,7 +48,4 @@ test:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
 production:
-  <<: *default
-  database: rss_feed_production
-  username: rss_feed
-  password: <%= ENV['RSS_FEED_DATABASE_PASSWORD'] %>
+    url: <%= ENV['DATABASE_URL'] %>
