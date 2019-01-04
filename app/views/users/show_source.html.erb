@@ -12,7 +12,7 @@
             <% if current_user.following?(news_hub) %>
                 <%= link_to 'Unfollow', source_path(:news_hub_id => news_hub.id), method: :post, class: 'bttn-pill bttn-sm bttn-danger', method: :put, :remote => true %>
             <% else %>
-                <%= link_to 'Follow', source_path(:news_hub_id => news_hub.id), method: :post, style: 'text-decoration: none;', class: 'bttn-pill bttn-md bttn-success', method: :put, remote: true %>
+                <%= link_to 'Follow', source_path(:news_hub_id => news_hub.id), method: :post, style: 'text-decoration: none;', class: 'bttn-pill bttn-sm bttn-success', method: :put, remote: true %>
             <% end %>
         <% end %>
 
