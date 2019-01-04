@@ -1,10 +1,10 @@
 <div id="reload">
-<% if current_user.have_read?(news_feed) %>
+<% if current_user.viewed?(news_feed) %>
 <div id = 'overlay'>
 <%end%>
 <div class="well">
     <div class="media">
-      <a class="pull-left" href="<%=news_feed.url%>%">
+    <a class="pull-left">  
         <% if news_feed.image_url != nil &&  news_feed.image_url != ""%>
           <%= image_tag news_feed.image_url, :class => "media-object", :width => "150", :height => "150" %>
         <% else %>
@@ -13,7 +13,7 @@
   		</a>
   		<div class="media-body">
     		<h4 class="media-heading"><%= link_to news_feed.title, read_path(:news_feed_id => news_feed.id), method: :post,remote: true %></h4>
-          <p><%= raw (truncate("#{news_feed.description}",length: 100) { link_to "Continue", "#{news_feed.url}" , target: :_blank})%></p>
+          <p><%= raw (truncate("#{news_feed.description}",length: 100) { link_to "Continue", read_path(:news_feed_id => news_feed.id), method: :post,remote: true})%></p>
           <ul class="list-inline list-unstyled">
   			    <li><span><i class="glyphicon glyphicon-calendar"></i> <%= time_ago_in_words(news_feed.published_on) %> ago. </span></li>
              <li>|</li>
@@ -22,7 +22,7 @@
        </div>
     </div>
 </div>
-<% if current_user.have_read?(news_feed) %>
+<% if current_user.viewed?(news_feed) %>
 </div>
 <%end%>
 </div>

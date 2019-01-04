@@ -3,8 +3,10 @@ class User < ApplicationRecord
   acts_as_reader
 
   has_many :microposts, dependent: :destroy
-  has_many :source_subscriptions
+  has_many :source_subscriptions, dependent: :destroy
   has_many :news_hubs, through: :source_subscriptions
+  has_many :view_status, dependent: :destroy
+  has_many :news_feeds, through: :view_status
 
   before_save { self.email = email.downcase }
   attr_accessor :remember_token
@@ -18,7 +20,6 @@ class User < ApplicationRecord
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
 
   def following?(news_hub)
-    # Check if current_user needs to be used?
     news_hubs.include?(news_hub)
   end
   
@@ -34,6 +35,13 @@ class User < ApplicationRecord
     news_hubs
   end
   
+  def viewed?(news_feed)
+    news_feeds.include?(news_feed)
+  end
+  
+  def mark_viewed(news_feed)
+    news_feeds << news_feed
+  end
   
   
 

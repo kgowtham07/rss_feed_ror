@@ -5,7 +5,7 @@ class UsersController < ApplicationController
 
 
   def index
-    @users = User.paginate(page: params[:page])
+    redirect_to root_path
   end
 
   def new
@@ -22,7 +22,7 @@ class UsersController < ApplicationController
     if @user.save
       log_in @user
       flash[:success] = "Welcome to the Sample App!"
-      redirect_to @user
+      redirect_to root_url
     else
       flash[:danger] = "Sorry, couldn't create account. Please try again."
       render 'new'
@@ -37,7 +37,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     if @user.update_attributes(user_params)
       flash[:success] = "Profile updated"
-      redirect_to @user
+      redirect_to root_url
     else
       render 'edit'
     end
@@ -55,8 +55,7 @@ class UsersController < ApplicationController
   
 
   def toggle_subscribe
-    @news_hub = NewsHub.find(params[:news_hub_id])
-    
+    @news_hub = NewsHub.find(params[:news_hub_id])    
     if !current_user.following?(@news_hub)
       current_user.follow(@news_hub)
     elsif current_user.following?(@news_hub)
@@ -72,8 +71,12 @@ class UsersController < ApplicationController
   def toggle_read
     @news_feed = NewsFeed.find(params[:news_feed_id])
 
-    if !current_user.have_read?(@news_feed)
-      @news_feed.mark_as_read! for: current_user
+    # if !current_user.have_read?(@news_feed)
+    #   @news_feed.mark_as_read! for: current_user
+    # end
+
+    if !current_user.viewed?(@news_feed)
+      current_user.mark_viewed(@news_feed)
     end
 
     respond_to do |format|

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_03_095218) do
+ActiveRecord::Schema.define(version: 2019_01_04_074152) do
 
   create_table "microposts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.text "content"
@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 2019_01_03_095218) do
 
   create_table "news_feeds", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
-    t.string "url"
+    t.text "url"
     t.string "url_digest"
     t.text "description", limit: 16777215
     t.timestamp "published_on"
@@ -73,8 +73,19 @@ ActiveRecord::Schema.define(version: 2019_01_03_095218) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  create_table "view_statuses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "news_feed_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["news_feed_id"], name: "index_view_statuses_on_news_feed_id"
+    t.index ["user_id"], name: "index_view_statuses_on_user_id"
+  end
+
   add_foreign_key "microposts", "users"
   add_foreign_key "news_feeds", "news_hubs"
   add_foreign_key "source_subscriptions", "news_hubs"
   add_foreign_key "source_subscriptions", "users"
+  add_foreign_key "view_statuses", "news_feeds"
+  add_foreign_key "view_statuses", "users"
 end

@@ -3,4 +3,9 @@
     <%= render @feed_items %>
   </ol>
   <%= will_paginate @feed_items %>
+<% else %>
+  <%
+    flash[:danger] = "Please Subscribe a Source!" 
+    controller.redirect_to source_path 
+  %>
 <% end %>
