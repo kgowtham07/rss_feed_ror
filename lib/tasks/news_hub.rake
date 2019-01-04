@@ -5,4 +5,12 @@ namespace :news_hub do
     news_hub.articlePoller
   end
 
+  task add_source: :environment do
+    User.create!(name:  "admin",
+      email: "admin@newsfeed.org",
+      password:              "admin123",
+      password_confirmation: "admin123",
+      admin: true)
+  end
+
 end
